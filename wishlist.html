@@ -1,0 +1,28 @@
+<div class="wishlist-items">
+    <h2>Your Wishlist</h2>
+    <div id="wishlist-container"></div>
+</div>
+
+<script>
+function loadWishlist() {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlistContainer = document.getElementById('wishlist-container');
+    
+    wishlistContainer.innerHTML = ''; // Clear container
+    if (wishlist.length === 0) {
+        wishlistContainer.innerHTML = '<p>Your wishlist is empty.</p>';
+    } else {
+        wishlist.forEach(item => {
+            wishlistContainer.innerHTML += `
+                <div class="wishlist-item">
+                    <img src="${item.image}" alt="${item.name}" style="width: 100px; height: 100px;">
+                    <p>${item.name}</p>
+                </div>
+            `;
+        });
+    }
+}
+
+// Load wishlist items on page load
+window.onload = loadWishlist;
+</script>

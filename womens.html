@@ -159,49 +159,57 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
                 <div class="testimonal__swiper">
                 <!-- 1 -->
-                    <div class="cards">
-                        <article class="testimonal__card">
-                            <img
+                <div class="cards">
+                    <article class="testimonal__card">
+                        <img
                             src="https://m.media-amazon.com/images/I/715-Z-aOIhL._AC_UL480_FMwebp_QL65_.jpg"
-                              alt="" style="
-                              width: 280px;
-                                height: 345px;
-                                object-fit: cover;padding: 5px;">
-                            <h2 class="testimonal__title"
-                                style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color: hsl(203, 30%, 26%);">    Over-sized T-shirt 
-                                </h2>
-                            <p class="testimonal__description"
-                                style="font-family: var(--ff-poppins);color: hsl(208, 7%,46%);">
-                                Price - $39
-                                <div class="star">
-                                    <i class="fa-solid fa-star checked" ></i>
-                                    <i class="fa-solid fa-star checked" ></i>
-                                    <i class="fa-solid fa-star checked" ></i>
-                                    <i class="fa-solid fa-star-half checked " ></i>
-                                    <i class="fa-solid fa-star" ></i>
-                                  
-                                 </div>
-                            </p>
-                            <div class="button-container">
-                                <button class="add-to-cart" onclick="addToCart('Over-sized T-shirt', 39, 'https://m.media-amazon.com/images/I/715-Z-aOIhL._AC_UL480_FMwebp_QL65_.jpg')">Add to Cart</button>
-                                <button class="save-icon"><i class="fas fa-bookmark"></i></button>
-                                <button class="share-icon"><i class="fas fa-share-alt"></i></button>
-                                <div class="share-options">
-                                    <p class="title">Share</p>
-                                    <div class="quick-share" >
-                                        <button class="quick-btns"><i class="fab fa-facebook facebook-icon"></i></button>
-                                        <button class="quick-btns"><i class="fab fa-whatsapp whatsapp-icon"></i></i></button>
-                                        <button class="quick-btns"><i class="fab fa-x-twitter twitter-icon"></i></i></button>
-                                        <button class="quick-btns"><i class="fab fa-instagram instagram-icon"></i></i></button>
-                                    </div>
-                                    <div class="link-box">
-                                        <p class="link">http:./TrendTrove-Ecommerce-GSSoC-Extd-main/womens.html</p>
-                                        <button class="copy-btn">copy</button>
-                                    </div>
+                            alt="Over-sized T-shirt"
+                            style="width: 280px; height: 345px; object-fit: cover; padding: 5px;">
+                        
+                        <!-- Wishlist Button -->
+                        <button class="wishlist-icon" onclick="toggleWishlist('Over-sized T-shirt', 'https://m.media-amazon.com/images/I/715-Z-aOIhL._AC_UL480_FMwebp_QL65_.jpg')">
+                            <i class="fas fa-heart" id="wishlist-icon-Over-sized-T-shirt"></i> Wishlist
+                        </button>
+                        
+                        <h2 class="testimonal__title"
+                            style="font-family:'Lucida Sans', Geneva, Verdana, sans-serif; color: hsl(203, 30%, 26%);">
+                            Over-sized T-shirt
+                        </h2>
+                        
+                        <p class="testimonal__description" style="font-family: var(--ff-poppins); color: hsl(208, 7%, 46%);">
+                            Price - $39
+                            <div class="star">
+                                <i class="fa-solid fa-star checked"></i>
+                                <i class="fa-solid fa-star checked"></i>
+                                <i class="fa-solid fa-star checked"></i>
+                                <i class="fa-solid fa-star-half checked"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </p>
+                        
+                        <div class="button-container">
+                            <button class="add-to-cart" onclick="addToCart('Over-sized T-shirt', 39, 'https://m.media-amazon.com/images/I/715-Z-aOIhL._AC_UL480_FMwebp_QL65_.jpg')">Add to Cart</button>
+                            
+                            <button class="save-icon"><i class="fas fa-bookmark"></i></button>
+                            <button class="share-icon"><i class="fas fa-share-alt"></i></button>
+                            
+                            <div class="share-options">
+                                <p class="title">Share</p>
+                                <div class="quick-share">
+                                    <button class="quick-btns"><i class="fab fa-facebook facebook-icon"></i></button>
+                                    <button class="quick-btns"><i class="fab fa-whatsapp whatsapp-icon"></i></button>
+                                    <button class="quick-btns"><i class="fab fa-x-twitter twitter-icon"></i></button>
+                                    <button class="quick-btns"><i class="fab fa-instagram instagram-icon"></i></button>
+                                </div>
+                                <div class="link-box">
+                                    <p class="link">http://TrendTrove-Ecommerce-GSSoC-Extd-main/womens.html</p>
+                                    <button class="copy-btn">copy</button>
                                 </div>
                             </div>
-                        </article>
-                    </div>
+                        </div>
+                    </article>
+                </div>
+                
                     
                       
                 </div>
@@ -1509,6 +1517,49 @@ saveButtons.forEach((saveBtn) => {
 
     alert(name + ' has been added to the cart');
   }
+
+  // Function to toggle wishlist item
+function toggleWishlist(productName, productImage) {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    
+    // Check if product is already in wishlist
+    const itemIndex = wishlist.findIndex(item => item.name === productName);
+
+    // If item is already in wishlist, remove it
+    if (itemIndex !== -1) {
+        wishlist.splice(itemIndex, 1);
+        document.getElementById(`wishlist-icon-${productName.split(' ').join('-')}`).classList.remove('active');
+        alert(`${productName} has been removed from your wishlist`);
+    } else {
+        // Add to wishlist
+        wishlist.push({
+            name: productName,
+            image: productImage
+        });
+        document.getElementById(`wishlist-icon-${productName.split(' ').join('-')}`).classList.add('active');
+        alert(`${productName} has been added to your wishlist`);
+    }
+
+    // Save updated wishlist to localStorage
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+}
+
+// Function to check if product is in the wishlist on page load and update the icon state
+function initializeWishlistIcons() {
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+
+    wishlist.forEach(item => {
+        const iconId = `wishlist-icon-${item.name.split(' ').join('-')}`;
+        const wishlistIcon = document.getElementById(iconId);
+        if (wishlistIcon) {
+            wishlistIcon.classList.add('active');
+        }
+    });
+}
+
+// Initialize wishlist state when page loads
+window.onload = initializeWishlistIcons;
+
 
 
 
